@@ -1,9 +1,12 @@
 import busio
 import board
 import displayio
+import digitalio
 import terminalio
 from adafruit_display_text import label
 import adafruit_displayio_sh1106
+import rotaryio
+import time
 
 displayio.release_displays()
 
@@ -48,5 +51,30 @@ text_area = label.Label(
 )
 splash.append(text_area)
 
+knob = rotaryio.IncrementalEncoder(board.GP1, board.GP2)
+
+button= digitalio.DigitalInOut(board.GP15)
+button.direction = digitalio.Direction.INPUT
+button.pull = digitalio.Pull.UP
+
+# configure LEDs
+bLED = digitalio.DigitalInOut(board.GP7)
+bLED.direction = digitalio.Direction.OUTPUT
+bLED.value = True
+
+# configure LEDs
+gLED = digitalio.DigitalInOut(board.GP8)
+gLED.direction = digitalio.Direction.OUTPUT
+gLED.value = True
+
+# configure LEDs
+rLED = digitalio.DigitalInOut(board.GP9)
+rLED.direction = digitalio.Direction.OUTPUT
+rLED.value = False
+
+
 while True:
+    print(knob.position)
+    print(button.value)
+    time.sleep(1)
     pass
